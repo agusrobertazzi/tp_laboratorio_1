@@ -64,6 +64,14 @@ int factorialOperacion(int num, float* resultado)
 
 			*resultado = factorial;
 			status = 0; // OK
+		}else
+		{
+			if(num == 0)
+			{
+				*resultado = 1;
+				status = 0; // OK
+			}
 		}
+
 	return status;
 }
