@@ -217,6 +217,9 @@ int main(void) {
 				statusResultado = -1;
 				printf("\nSaliendo...\n");
 				break;
+			default:
+				printf("\nOpción incorrecta.. intente nuevamente\n");
+
 		}
 
 	}while(opcion != 5);
