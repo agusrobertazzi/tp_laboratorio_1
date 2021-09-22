@@ -6,7 +6,13 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
-
+/*
+/////////////////////////////////////////////////////////////////////
+brief: función que pide y valida a través de un bucle un número de tipo float
+param: se pide el puntero donde se guardará el número
+return: void
+/////////////////////////////////////////////////////////////////////
+*/
 void getMyFloat(float* num)
 {
 	int status = 0;
@@ -22,16 +28,43 @@ void getMyFloat(float* num)
 	}
 }
 
+/*
+/////////////////////////////////////////////////////////////////////
+brief: funcion encargada de sumar
+param1: se pide el primer número (float)
+param2: se pide el segundo número (float)
+param3: se pide el puntero donde se almacenará el resultado
+return: void
+/////////////////////////////////////////////////////////////////////
+*/
 void sumaOperacion(float numUno, float numDos, float* resultado)
 {
 	*resultado = numUno + numDos;
 }
 
+/*
+/////////////////////////////////////////////////////////////////////
+brief: funcion encargada de restar
+param1: se pide el primer número (float)
+param2: se pide el segundo número (float)
+param3: se pide el puntero donde se almacenará el resultado
+return: void
+/////////////////////////////////////////////////////////////////////
+*/
 void restaOperacion(float numUno, float numDos, float* resultado)
 {
 	*resultado = numUno - numDos;
 }
 
+/*
+/////////////////////////////////////////////////////////////////////
+brief: funcion encargada de dividir
+param1: se pide el primer número (float)
+param2: se pide el segundo número (float)
+param3: se pide el puntero donde se almacenará el resultado
+return: int que refiere al estado
+/////////////////////////////////////////////////////////////////////
+*/
 int divideOperacion(float numUno, float numDos, float* resultado)
 {
 	int status = -1; // Por defecto en ERROR
@@ -45,11 +78,28 @@ int divideOperacion(float numUno, float numDos, float* resultado)
 	return status;
 }
 
+/*
+/////////////////////////////////////////////////////////////////////
+brief: funcion encargada de multiplicar
+param1: se pide el primer número (float)
+param2: se pide el segundo número (float)
+param3: se pide el puntero donde se almacenará el resultado
+return: void
+/////////////////////////////////////////////////////////////////////
+*/
 void multiplicaOperacion(float numUno, float numDos, float* resultado)
 {
 	*resultado = numUno * numDos;
 }
 
+/*
+/////////////////////////////////////////////////////////////////////
+brief: funcion encargada de realizar factorial
+param1: se pide el número a factorear(int)
+param2: se pide el puntero donde se almacenará el resultado
+return: int que refiere al estado
+/////////////////////////////////////////////////////////////////////
+*/
 int factorialOperacion(int num, float* resultado)
 {
 	int factorial = 1;
