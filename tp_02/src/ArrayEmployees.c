@@ -1,5 +1,11 @@
 #include "ArrayEmployees.h"
 
+/*
+brief: Recorre el array y establece todas las posiciones como isEmpty == TRUE (Libre)
+param: Struct -> Employee* list || Lista de empleados
+param: Int len || Longitud de la lista
+return: 0 TRUE || -1 FALSE
+ */
 int initEmployees(Employee* list, int len)
 {
 	int status = FALSE;
@@ -18,6 +24,17 @@ int initEmployees(Employee* list, int len)
 	return status;
 }
 
+/*
+brief: Recibe los parametros y crea un nuevo Empleado
+param: Struct -> Employee* list || Lista de empleados
+param: Int len || Longitud de la lista
+param: Int id || ID del usuario
+param: Char name[] || Nombre del usuario
+param: Char lastName[] || Apellido del usuario
+param: Float salary || Salario del usuario
+param: Int sector || Sector del usuario
+return: 0 TRUE || -1 FALSE
+ */
 int addEmployee(Employee* list, int len, int id, char name[], char lastName[], float salary, int sector)
 {
 	int status = FALSE;
@@ -44,6 +61,14 @@ int addEmployee(Employee* list, int len, int id, char name[], char lastName[], f
 	return status;
 }
 
+
+/*
+brief: Recorre el array y busca la posición donde conincida el id a buscar con el id del usuario
+param: Struct -> Employee* list || Lista de empleados
+param: Int len || Longitud de la lista
+param: Int id || ID del usuario a buscar
+return: -1 FALSE || Posición del empleado dentro del array
+ */
 int findEmployeeById(Employee* list, int len, int id)
 {
 	int status = FALSE;
@@ -63,6 +88,14 @@ int findEmployeeById(Employee* list, int len, int id)
 	return status;
 }
 
+
+/*
+brief: Recorre el array y busca la posición donde conincida el id a buscar con el id del usuario para modificarlo
+param: Struct -> Employee* list || Lista de empleados
+param: Int len || Longitud de la lista
+param: Int id || ID del usuario a modicar
+return: -1 FALSE || 0 TRUE
+ */
 int modifyEmployee(Employee* list, int len, int id)
 {
 	int status = FALSE;
@@ -111,6 +144,13 @@ int modifyEmployee(Employee* list, int len, int id)
 	return status;
 }
 
+/*
+brief: Recorre el array y busca la posición donde conincida el id a buscar con el id del usuario para eliminarlo
+param: Struct -> Employee* list || Lista de empleados
+param: Int len || Longitud de la lista
+param: Int id || ID del usuario a eliminar
+return: -1 FALSE || 0 TRUE
+ */
 int removeEmployee(Employee* list, int len, int id)
 {
 	int status = FALSE;
@@ -130,6 +170,13 @@ int removeEmployee(Employee* list, int len, int id)
 	return status;
 }
 
+/*
+brief: Recorre el array y lo ordena alfabeticamente
+param: Struct -> Employee* list || Lista de empleados
+param: Int len || Longitud de la lista
+param: Int orden || Orden ascendente o descendente
+return: -1 FALSE || 0 TRUE
+ */
 int sortEmployees(Employee* list, int len, int orden)
 {
 	int status = FALSE;
@@ -169,41 +216,6 @@ int sortEmployees(Employee* list, int len, int orden)
 					}
 				}
 			}
-
-			/*printf("\n\nEntre al caso 1\n\n");
-			do
-			{
-				printf("\n\nBucle 1\n\n");
-				flagSwap = FALSE;
-				for(i = 0; i < len - 1; i++)
-				{
-					printf("\n\nBucle 2\n\n");
-					if((strcmp(list[i].lastName,list[i+1].lastName) > 0) && (list[i].isEmpty == FALSE && list[i+1].isEmpty == FALSE))
-					{
-						printf("\n\nValidación 1\n\n");
-						flagSwap = TRUE;
-						*listAux=list[i];
-						list[i]=list[i+1];
-						list[i+1]=*listAux;
-					}
-					else
-					{
-						if((strcmp(list[i].lastName,list[i+1].lastName) == 0) && (list[i].isEmpty == FALSE && list[i+1].isEmpty == FALSE))
-						{
-							printf("\n\nValidación 2\n\n");
-							if(list[i].sector > list[i+1].sector)
-							{
-								printf("\n\nValidación 3\n\n");
-								flagSwap = TRUE;
-								*listAux=list[i];
-								list[i]=list[i+1];
-								list[i+1]=*listAux;
-							}
-						}
-					}
-					len--;
-				}
-			}while(flagSwap == TRUE);*/
 		}
 		else
 		{
@@ -242,6 +254,12 @@ int sortEmployees(Employee* list, int len, int orden)
 	return status;
 }
 
+/*
+brief: Recorre el array e imprime aquellos usuarios donde isEmpty == FALSE
+param: Struct -> Employee* list || Lista de empleados
+param: Int len || Longitud de la lista
+return: -1 FALSE || 0 TRUE
+ */
 int printEmployees(Employee* list, int len)
 {
 	int status = FALSE;
@@ -264,6 +282,12 @@ int printEmployees(Employee* list, int len)
 	return status;
 }
 
+/*
+brief: Recorre el array, acumula los salarios y cuenta los empleados disponibles. Además cuenta cuenta cuantos usuarios pasan el salario promedio y los imprime
+param: Struct -> Employee* list || Lista de empleados
+param: Int len || Longitud de la lista
+return: -1 FALSE || 0 TRUE
+ */
 int promedioEmployees(Employee* list, int len)
 {
 	int status = FALSE;

@@ -1,9 +1,3 @@
-/*
- * utn_ops.c
- *
- *  Created on: 12 oct. 2021
- *      Author: agust
- */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

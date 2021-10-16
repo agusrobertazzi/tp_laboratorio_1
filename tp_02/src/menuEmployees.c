@@ -1,5 +1,9 @@
 #include "menuEmployees.h"
 
+/*
+brief: Inicializa un contador y lo suma cuando se retorna la función
+return: Int incrementado en uno
+ */
 static int getNewId(void)
 {
 	static int counter = 0;
@@ -7,6 +11,10 @@ static int getNewId(void)
 	return(counter++);
 }
 
+/*
+brief: Inicializa el menú de la aplicación
+
+ */
 void initMenu(void)
 {
 
