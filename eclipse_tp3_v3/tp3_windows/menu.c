@@ -15,28 +15,33 @@ void init_menu(void)
 
 	if(linkedList != NULL)
 	{
-		if(controller_loadFromBinary("dataGeneradoBinary.bin", linkedList) == TRUE)
+		int statusBinary = controller_loadFromBinary("dataGeneradoBinary.bin", linkedList);
+		printf("Validador: %d\n", statusBinary);
+		if(statusBinary == TRUE)
 		{
 			flagBin = TRUE;
 		}
 		else
 		{
-			puts("-------------------------------------------------");
-			puts("Tienes un archivo .csv con usuarios esperando a ser cargados");
-			puts("¿Deseas cargarlos ahora? (Sí los cargas ahora, ya quedarán cargados cuando inicies el programa");
-			puts("1. Si");
-			puts("2. No");
-			puts("-------------------------------------------------");
-			ingresoIntMinMax(&initialOption, "Opción: ", "Error. Número inválido: ", 1, 2);
-			if(initialOption == 1)
+			if(flagBin == FALSE)
 			{
-				if(controller_loadFromBinary("dataGeneradoBinary.bin", linkedList) == TRUE)
+				puts("-------------------------------------------------");
+				puts("Tienes un archivo .csv con usuarios esperando a ser cargados");
+				puts("¿Deseas cargarlos ahora? (Sí los cargas ahora, ya quedarán cargados cuando inicies el programa)");
+				puts("1. Si");
+				puts("2. No");
+				puts("-------------------------------------------------");
+				ingresoIntMinMax(&initialOption, "Opción: ", "Error. Número inválido: ", 1, 2);
+				if(initialOption == 1)
 				{
-					flagText = TRUE;
-					puts("-------------------------------------------------");
-					puts("Carga realizada con éxito");
-					puts("-------------------------------------------------");
-					puts("\n");
+					if(controller_loadFromText("data.csv", linkedList) == TRUE)
+					{
+						flagText = TRUE;
+						puts("-------------------------------------------------");
+						puts("Carga realizada con éxito");
+						puts("-------------------------------------------------");
+						puts("\n");
+					}
 				}
 			}
 		}

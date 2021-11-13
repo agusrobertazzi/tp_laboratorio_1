@@ -118,11 +118,6 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
             		}
             	}
             }
-            else
-            {
-                status = FALSE;
-                break;
-            }
 
         }while( feof(pFile)==0 );
     }

@@ -67,32 +67,11 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 	FILE* f = fopen(path,"rb");
 
 
-	if(f != NULL && pArrayListEmployee != NULL)
+	if(f != NULL)
 	{
 		if(parser_EmployeeFromBinary(f , pArrayListEmployee) == FALSE)
 		{
 			status = FALSE;
-			/*rewind(f);
-
-			do
-			{
-				fread(aux,sizeof(Employee),1,f);
-
-				employee_getId(aux, &auxId);
-
-		        index = controller_findEmployee(pArrayListEmployee, auxId);
-
-		        if(index != FALSE)
-		        {
-			        aux = ll_get(pArrayListEmployee, index);
-			        if(aux != NULL)
-			        {
-			        	employee_delete(aux, pArrayListEmployee, index);
-			        	flag = TRUE;
-			        }
-		        }
-
-			}while(flag == TRUE);*/
 		}
 		fclose(f);
 
