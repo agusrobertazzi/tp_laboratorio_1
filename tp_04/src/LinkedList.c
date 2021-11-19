@@ -17,7 +17,7 @@ LinkedList* ll_newLinkedList(void)
 {
 	LinkedList* newList = (LinkedList*)malloc(sizeof(LinkedList));
 
-	if(newList !=NULL)
+	if(newList != NULL)
 	{
 		newList->size = 0;
 		newList->pFirstNode = NULL;
@@ -55,7 +55,7 @@ int ll_len(LinkedList* this)
  */
 static Node* getNode(LinkedList* this, int nodeIndex)
 {
-	Node* aux;
+	Node* aux = NULL;
 
 	if (this != NULL && (nodeIndex < ll_len(this) && nodeIndex >= 0) && ll_len(this) > 0)
 	{
@@ -94,59 +94,42 @@ Node* test_getNode(LinkedList* this, int nodeIndex)
  */
 static int addNode(LinkedList* this, int nodeIndex, void* pElement)
 {
-	int status = -1;
-	Node* aux;
-	Node* newNode;
+    int status = -1;
+    Node* aux;//aux
+    Node* newNode;//nuevo nodo
+    int size = ll_len(this);
+    if (this != NULL && (nodeIndex <= size && nodeIndex >= 0))// 0 1 2 3 4
+    {
+        newNode = (Node*)malloc(sizeof(Node));
+        if(newNode!=NULL)
+        {
+            if(nodeIndex == 0)
+            {
+            	aux = getNode(this, nodeIndex);
+                newNode->pNextNode = aux;
+                this->pFirstNode = newNode;
+                status = 0;
 
+            }
+            else
+            {
+            	aux = getNode(this, nodeIndex-1);
+                newNode->pNextNode = aux->pNextNode;
+                aux->pNextNode=newNode;
+                status = 0;
 
-	if(this != NULL && nodeIndex >= 0 && nodeIndex <= ll_len(this) && pElement != NULL)
-	{
-		// Pregunta sí es el primer index o no
-		newNode = (Node*)malloc(sizeof(Node));
-		if(newNode != NULL)
-		{
-			// Sí agrego nodo en primera posición
-			if(nodeIndex == 0)
-			{
-				aux = getNode(this, nodeIndex);
-				if(aux != NULL)
-				{
-					newNode->pNextNode = aux;
-					this->pFirstNode = newNode;
-					status = 0;
-				}
-			}
-			else // Sino..
-			{
+            }
 
-				aux = getNode(this, nodeIndex-1);
-				if(aux != NULL)
-				{
-					// Sí agrego al ultimo
-					if(nodeIndex == ll_len(this))
-					{
-						newNode->pNextNode = NULL;
-					}
-					else //Sino...
-					{
-						newNode->pNextNode = aux->pNextNode;
-					}
+            if(status == 0)
+            {
+                newNode->pElement = pElement;
+                size++;
+                this->size=size;
+            }
+        }
+    }
 
-					aux->pNextNode = newNode;
-					status = 0;
-
-				}
-			}
-
-			if(status == 0)
-			{
-				newNode->pElement = pElement;
-				this->size++;
-			}
-		}
-	}
-
-	return status;
+    return status;
 }
 
 /** \brief Permite realizar el test de la funcion addNode la cual es privada
@@ -173,12 +156,11 @@ int test_addNode(LinkedList* this, int nodeIndex,void* pElement)
  */
 int ll_add(LinkedList* this, void* pElement)
 {
+
 	int status = -1;
 
-	if(this != NULL & pElement != NULL)
-	{
-		status = addNode(this, ll_len(this), pElement);
-	}
+	status = addNode(this, ll_len(this), pElement);
+
 
 	return status;
 }
@@ -193,8 +175,8 @@ int ll_add(LinkedList* this, void* pElement)
  */
 void* ll_get(LinkedList* this, int index)
 {
+	Node* aux = getNode(this, index);
     void* status = NULL;
-    Node* aux = getNode(this, index);
 
     if(aux != NULL)
     {
@@ -220,7 +202,7 @@ int ll_set(LinkedList* this, int index,void* pElement)
 {
 	int status = -1;
 
-	if(this != NULL & pElement != NULL)
+	if(this != NULL && index < ll_len(this) && index >= 0)
 	{
 		status = addNode(this, index, pElement);
 	}
@@ -278,6 +260,8 @@ int ll_remove(LinkedList* this,int index)
 
 		if(status == 0)
 		{
+			free(memoryRemoved->pElement);
+			free(memoryRemoved);
 			this->size--;
 		}
 
@@ -296,9 +280,24 @@ int ll_remove(LinkedList* this,int index)
  */
 int ll_clear(LinkedList* this)
 {
-    int returnAux = -1;
+    int status = -1;
+    int i;
 
-    return returnAux;
+    if(this != NULL)
+    {
+
+		for(i = ll_len(this)-1; i >= 0; i--)
+		{
+			status = ll_remove(this, i);
+			if(status == -1)
+			{
+				break;
+			}
+		}
+
+    }
+
+    return status;
 }
 
 
@@ -311,9 +310,18 @@ int ll_clear(LinkedList* this)
  */
 int ll_deleteLinkedList(LinkedList* this)
 {
-    int returnAux = -1;
+    int status = -1;
 
-    return returnAux;
+    if(this != NULL)
+    {
+    	status = ll_clear(this);
+    	if(status == 0)
+    	{
+    		free(this);
+    	}
+    }
+
+    return status;
 }
 
 /** \brief Busca el indice de la primer ocurrencia del elemento pasado como parametro
@@ -326,9 +334,27 @@ int ll_deleteLinkedList(LinkedList* this)
  */
 int ll_indexOf(LinkedList* this, void* pElement)
 {
-    int returnAux = -1;
+	int status = -1;
+	int i;
+	Node* aux;
 
-    return returnAux;
+    if(this != NULL)
+    {
+    	for(i = 0; i < ll_len(this);i++)
+    	{
+    		aux = getNode(this, i);
+    		if(aux != NULL)
+    		{
+    			if(pElement == aux->pElement)
+    			{
+    				status = i;
+    				break;
+    			}
+    		}
+    	}
+    }
+
+    return status;
 }
 
 /** \brief Indica si la lista esta o no vacia
