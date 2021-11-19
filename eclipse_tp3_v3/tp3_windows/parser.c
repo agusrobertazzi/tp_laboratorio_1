@@ -19,13 +19,13 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 
     if(pFile != NULL && pArrayListEmployee != NULL)
     {
-        fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n",id,nombre,horas,sueldo); // Salteo la primera línea
+        fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n",id,nombre,horas,sueldo); // Salteo la primera lÃ­nea
 
         do
         {
             if(fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n",id,nombre,horas,sueldo) == 4)
             {
-                if(controller_findEmployee(pArrayListEmployee, atoi(id)) == FALSE) // Busca sí se encuentra el ID
+                if(controller_findEmployee(pArrayListEmployee, atoi(id)) == FALSE) // Busca sÃ­ se encuentra el ID
                 {
                 	aux = employee_newParametros(id, nombre, horas, sueldo);
                 	if(aux != NULL)
@@ -54,11 +54,11 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 					}
                 }
             }
-            else
+            /*else
             {
             	status = FALSE;
             	break;
-            }
+            }*/
 
         }while( feof(pFile) == 0 );
     }
