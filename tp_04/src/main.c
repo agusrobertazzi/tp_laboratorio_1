@@ -39,7 +39,7 @@ int main(void)
 	startTesting(9);  // ll_clear // LISTO
 	startTesting(10); // ll_deleteLinkedList // LISTO
 	startTesting(11); // ll_indexOf // LISTO
-/*	startTesting(12); // ll_isEmpty
+	startTesting(12); // ll_isEmpty
 	startTesting(13); // ll_push
 	startTesting(14); // ll_pop
 	startTesting(15); // ll_contains

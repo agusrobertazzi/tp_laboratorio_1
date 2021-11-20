@@ -200,14 +200,22 @@ void* ll_get(LinkedList* this, int index)
  */
 int ll_set(LinkedList* this, int index,void* pElement)
 {
-	int status = -1;
+    int status = -1;
+    Node* aux;
 
-	if(this != NULL && index < ll_len(this) && index >= 0)
-	{
-		status = addNode(this, index, pElement);
-	}
+    if(this != NULL && index < ll_len(this) && index >= 0)
+    {
+    	aux = getNode(this, index);
 
-	return status;
+    	if(aux != NULL)
+    	{
+    		aux->pElement = pElement;
+    		status = 0;
+    	}
+    	//errorCode = addNode(this, index, pElement);
+    }
+
+    return status;
 }
 
 
@@ -367,9 +375,21 @@ int ll_indexOf(LinkedList* this, void* pElement)
  */
 int ll_isEmpty(LinkedList* this)
 {
-    int returnAux = -1;
+    int status = -1;
 
-    return returnAux;
+    if(this != NULL)
+    {
+    	if(ll_len(this)>0)
+    	{
+    		status = 0;
+    	}
+    	else
+    	{
+    		status = 1;
+    	}
+    }
+
+    return status;
 }
 
 /** \brief Inserta un nuevo elemento en la lista en la posicion indicada
@@ -383,9 +403,14 @@ int ll_isEmpty(LinkedList* this)
  */
 int ll_push(LinkedList* this, int index, void* pElement)
 {
-    int returnAux = -1;
+    int status = -1;
 
-    return returnAux;
+    if(this != NULL && (index <= ll_len(this) && index >= 0))
+    {
+    	status = addNode(this, index, pElement);
+    }
+
+    return status;
 }
 
 
@@ -397,11 +422,14 @@ int ll_push(LinkedList* this, int index, void* pElement)
                             (pElement) Si funciono correctamente
  *
  */
-void* ll_pop(LinkedList* this,int index)
+void* ll_pop(LinkedList* this, int index)
 {
-    void* returnAux = NULL;
+    void* status = NULL;
 
-    return returnAux;
+    status= ll_get(this, index);
+	ll_remove(this, index);
+
+	return status;
 }
 
 
@@ -415,9 +443,23 @@ void* ll_pop(LinkedList* this,int index)
 */
 int ll_contains(LinkedList* this, void* pElement)
 {
-    int returnAux = -1;
+	int status = -1;
 
-    return returnAux;
+	if(this != NULL)
+	{
+		status = ll_indexOf(this, pElement);
+
+		if(status >= 0)
+		{
+			status = 1;
+		}
+		else
+		{
+			status = 0;
+		}
+	}
+
+    return status;
 }
 
 /** \brief  Determina si todos los elementos de la lista (this2)
@@ -431,9 +473,26 @@ int ll_contains(LinkedList* this, void* pElement)
 */
 int ll_containsAll(LinkedList* this,LinkedList* this2)
 {
-    int returnAux = -1;
+	int status = -1;
+	void* pElement;
 
-    return returnAux;
+	if(this != NULL && this2 != NULL)
+	{
+		status = 0;
+
+		for(int i = 0; i<ll_len(this2);i++)
+		{
+			pElement = ll_get(this2, i);
+			status = ll_contains(this, pElement);
+
+			if(status == 0)
+			{
+				break;
+			}
+		}
+	}
+
+	return status;
 }
 
 /** \brief Crea y retorna una nueva lista con los elementos indicados
@@ -448,9 +507,27 @@ int ll_containsAll(LinkedList* this,LinkedList* this2)
 */
 LinkedList* ll_subList(LinkedList* this,int from,int to)
 {
-    LinkedList* cloneArray = NULL;
+	LinkedList* status = NULL;
 
-    return cloneArray;
+	void* temp;
+	int size = ll_len(this);
+
+	if(this!= NULL && from >= 0 && to <= size && from <= to)
+	{
+		status = ll_newLinkedList();
+
+	    for (int i=from; i<to; i++)
+	    {
+	    	temp=ll_get(this,i);
+
+	    	if(temp!=NULL)
+	    	{
+	    		ll_add(status, temp);
+	    	}
+	    }
+	}
+
+	return status;
 }
 
 
@@ -463,9 +540,9 @@ LinkedList* ll_subList(LinkedList* this,int from,int to)
 */
 LinkedList* ll_clone(LinkedList* this)
 {
-    LinkedList* cloneArray = NULL;
+    LinkedList* status = ll_subList(this, 0, ll_len(this));
 
-    return cloneArray;
+    return status;
 }
 
 
@@ -478,9 +555,62 @@ LinkedList* ll_clone(LinkedList* this)
  */
 int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 {
-    int returnAux =-1;
+	int i;
+	int j;
+	int status = -1;
+	int len = ll_len(this);
+	void* pElementA;
+	void* pElementB;
 
-    return returnAux;
+	if(this != NULL && len > 0 && pFunc != NULL && (order == 0 || order == 1))
+	{
+		if(len >= 2)
+		{
+			for(i=0 ; i<len-1 ; i++)
+			{
+				status = 1;
+
+				for(j=(i+1) ; j<len ; j++)
+				{
+					pElementA=ll_get(this,i);
+					pElementB=ll_get(this,j);
+
+					if(pElementA != NULL && pElementB != NULL)
+					{
+						if (order == 1)
+						{
+							if(pFunc(pElementA, pElementB)>0)
+							{
+								ll_set(this, i, pElementB);
+								ll_set(this, j, pElementA);
+
+								status = 0;
+							}
+						}
+						else
+						{
+							if(pFunc(pElementA, pElementB) < 0)
+							{
+								ll_set(this, i, pElementB);
+								ll_set(this, j, pElementA);
+
+								status = 0;
+							}
+						}
+					}
+				}
+
+				if(status != 0)
+				{
+					break;
+				}
+			}
+		}
+
+		status = 0;
+	}
+
+	return status;
 
 }
 
