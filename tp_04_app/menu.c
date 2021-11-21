@@ -10,6 +10,7 @@ void init_menu(void)
 	int flagBinCreated = FALSE;
 
 	LinkedList* linkedList = ll_newLinkedList();
+	LinkedList* auxList;
 	int option;
 	int initialOption;
 
@@ -282,9 +283,11 @@ void init_menu(void)
 				if(ll_len(linkedList) > 0)
 				{
 
-					if(controller_sortEmployee(linkedList) != FALSE)
+					auxList = ll_clone(linkedList);
+
+					if(controller_sortEmployee(auxList) != FALSE)
 					{
-						if(controller_ListEmployee(linkedList) != FALSE)
+						if(controller_ListEmployee(auxList) != FALSE)
 						{
 							puts("\n");
 							puts("-------------------------------------------------");
